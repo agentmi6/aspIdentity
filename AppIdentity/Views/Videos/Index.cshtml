@@ -1,0 +1,51 @@
+﻿@model IEnumerable<AppIdentity.Models.Video>
+
+@{
+    ViewBag.Title = "Index";
+}
+<br><br>
+<div class="row">
+    <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Find video by tags">
+        </div>
+        <button type="submit" class="btn btn-default">Search...</button>
+    </form>
+</div>
+<hr>
+
+<!-- show tags --> 
+
+
+<!-- End -->
+
+
+
+<div class="container">
+    <div class="col-lg-10 col-md-8">
+        @foreach (var item in Model)
+        {
+            <div id="ytLink" class="row">
+                <div><p>@Html.DisplayFor(modelItem => item.Title)</p></div>
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="@item.VideoLink" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </div>
+                <div class="glyphicon glyphicon-tags">
+                    @foreach (string tag in item.tags.Split(';'))
+                    {
+                        string tTag = tag.Trim();
+                        if (!string.IsNullOrWhiteSpace(tag))
+                        {
+                            <a href="~/Videos?tag=@tTag" class="btn btn-warning btn-sm">@tTag</a>
+                        }
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
